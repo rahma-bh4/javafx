@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.OrdreReparationController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="700.0" style="-fx-background-color: #f5f5f7;">
+   <top>
+      <VBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0" style="-fx-background-color: #3498db;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDRE DE RÉPARATION">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Label text="Formulaire de création" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <ScrollPane fitToWidth="true" vvalue="1.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox spacing="10.0">
+               <children>
+                  <!-- Section Recherche Client -->
+                  <AnchorPane style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                     <children>
+                        <VBox spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Recherche Client">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <Separator />
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Label text="Rechercher client :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                  <TextField fx:id="txtRechercheClient" prefHeight="35.0" prefWidth="400.0" promptText="Nom, prénom ou numéro de client" style="-fx-background-radius: 5px;" />
+<Button fx:id="btnRechercherClient" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5px;" text="Rechercher">
+                                  
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </AnchorPane>
+                  
+                  <!-- Section Informations Client -->
+                  <AnchorPane style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                     <children>
+                        <VBox spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="Informations Client">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <Separator />
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Nom :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 <TextField fx:id="txtNomClient" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Adresse :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                   <TextField fx:id="txtAdresseClient" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Numéro de téléphone :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                  <TextField fx:id="txtTelephoneClient" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  
+                  <!-- Section Appareil -->
+                  <AnchorPane style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                     <children>
+                        <VBox spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="Informations Appareil">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <Separator />
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Description :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 <TextArea fx:id="txtDescriptionAppareil" prefHeight="60.0" prefWidth="400.0" promptText="Décrivez l'appareil et le problème" style="-fx-background-radius: 5px;" wrapText="true" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Marque :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                              <TextField fx:id="txtMarqueAppareil" prefHeight="35.0" prefWidth="400.0" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Catégorie :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                  <ComboBox fx:id="cmbCategorieAppareil" prefHeight="35.0" prefWidth="250.0" promptText="Sélectionnez une catégorie" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  
+                  <!-- Section Ordre de réparation -->
+                  <AnchorPane style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                     <children>
+                        <VBox spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="Détails de la Réparation">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <Separator />
+                              <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Nb. d'heures MO :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                   <Spinner fx:id="spinnerHeuresMO" prefHeight="35.0" prefWidth="120.0" style="-fx-background-radius: 5px;" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="TOP_LEFT" spacing="15.0">
+                                 <children>
+                                    <Label prefWidth="150.0" text="Informations suppl. :">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                  <TextArea fx:id="txtInfosSupplementaires" prefHeight="80.0" prefWidth="400.0" promptText="Notes additionnelles sur la réparation" style="-fx-background-radius: 5px;" wrapText="true" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+                  
+                  <!-- Section Pièces détachées (facultatif) -->
+                  <AnchorPane style="-fx-background-color: white; -fx-background-radius: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+                     <children>
+                        <VBox spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <Text fill="#3498db" strokeType="OUTSIDE" strokeWidth="0.0" text="Pièces Détachées (facultatif)">
+                                       <font>
+                                          <Font name="System Bold" size="16.0" />
+                                       </font>
+                                    </Text>
+                                    <Label textFill="#727272">
+                                       <font>
+                                          <Font size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <Separator />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <VBox spacing="5.0">
+                                       <children>
+                                          <Label text="Sélection de pièces disponibles :">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label textFill="#727272">
+                                             <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                         <TextField fx:id="txtRecherchePiece" promptText="Rechercher une pièce..." HBox.hgrow="ALWAYS" />
+                                         <Button fx:id="btnAjouterNouvellePiece" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 5px;" text="+ Nouvelle pièce">
+                                            <font>
+                                              <Font size="12.0" />
+                                            </font>
+                                         </Button>
+                                         <Button fx:id="btnAjouterPiece" mnemonicParsing="false" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 5px;" text="+ Ajouter sélection">
+                                              <font>
+                                                <Font size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                              
+                              <!-- Liste avec multi-sélection -->
+                              <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <!-- Liste des pièces disponibles (pour sélection) -->
+                                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Catalogue de pièces :">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="piecesDisponiblesTable" prefHeight="150.0" style="-fx-background-radius: 5px;">
+                                            <columns>
+                                              <TableColumn fx:id="colNomPieceDispo" prefWidth="280.0" text="Nom de la pièce" />
+                                              <TableColumn fx:id="colReferencePieceDispo" prefWidth="100.0" text="Référence" />
+                                              <TableColumn  fx:id="colPrixHtPieceDispo" prefWidth="100.0" text="Prix HT" />
+                                            </columns>
+                                            <VBox.margin>
+                                               <Insets />
+                                            </VBox.margin>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                    
+                                    <!-- Boutons pour transférer -->
+                                    <VBox alignment="CENTER" spacing="10.0">
+                                       <children>
+<Button fx:id="btnSupprimerPiece" mnemonicParsing="false" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5px;" text="&lt;&lt;">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                    
+                                    <!-- Pièces sélectionnées -->
+                                    <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Pièces sélectionnées pour réparation :">
+                                             <font>
+                                                <Font size="13.0" />
+                                             </font>
+                                          </Label>
+                                          <TableView fx:id="piecesTable" prefHeight="150.0" style="-fx-background-radius: 5px;">
+                                            <columns>
+                                              <TableColumn fx:id="colNomPiece" prefWidth="280.0" text="Nom de la pièce" />
+                                              <TableColumn fx:id="colPrixHT" prefWidth="100.0" text="Prix HT" />
+                                              <TableColumn fx:id="colQuantite" prefWidth="50.0" text="Qté" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              
+                              <!-- Total -->
+                              <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                                 <children>
+                                   <Label text="Total Pièces HT:" textFill="#2c3e50">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lblTotalPiecesHT" text="0,00 €" textFill="#2c3e50">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="200.0" spacing="15.0" style="-fx-background-color: #f0f0f0;" BorderPane.alignment="CENTER">
+         <children>
+          <Button fx:id="btnAnnuler" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 5px;" text="Annuler">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+          <Button fx:id="btnEnregistrer" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-background-radius: 5px;" text="Enregistrer">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>

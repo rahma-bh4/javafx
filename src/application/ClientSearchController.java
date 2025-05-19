@@ -1,10 +1,13 @@
 package application;
 
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,12 +57,10 @@ public class ClientSearchController implements Initializable {
     @FXML
     private Button closeButton;
     
-    private ClientDAO clientDAO;
     private ObservableList<Client> clientsList;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        clientDAO = new ClientDAO();
         clientsList = FXCollections.observableArrayList();
         
         // Initialize table columns
@@ -93,32 +94,85 @@ public class ClientSearchController implements Initializable {
     }
     
     private void loadAllClients() {
-        List<Client> allClients = clientDAO.getAllClients();
         clientsList.clear();
-        clientsList.addAll(allClients);
-        clientTableView.setItems(clientsList);
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM client ORDER BY name");
+             ResultSet rs = stmt.executeQuery()) {
+            
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                
+                Client client = new Client(id, name, address, phoneNumber);
+                clientsList.add(client);
+            }
+            
+            clientTableView.setItems(clientsList);
+            
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", 
+                      "Error loading clients", e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     @FXML
     private void searchClient(ActionEvent event) {
-        String searchName = searchField.getText().trim();
+        String searchText = searchField.getText().trim();
         
-        if (searchName.isEmpty()) {
+        if (searchText.isEmpty()) {
             loadAllClients();
             return;
         }
         
-        List<Client> foundClients = clientDAO.searchClientsByName(searchName);
         clientsList.clear();
         
-        if (foundClients.isEmpty()) {
-            showAlert(Alert.AlertType.INFORMATION, "No Results", 
-                    "No clients found", "No clients matching '" + searchName + "' were found.");
-        } else {
-            clientsList.addAll(foundClients);
+        // Search by name, id, or phone number
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(
+                "SELECT * FROM client WHERE name LIKE ? OR id = ? OR phoneNumber LIKE ? ORDER BY name")) {
+            
+            // Try to parse ID if the search is numeric
+            int id = 0;
+            try {
+                id = Integer.parseInt(searchText);
+            } catch (NumberFormatException e) {
+                // Not a number, id remains 0
+            }
+            
+            stmt.setString(1, "%" + searchText + "%");
+            stmt.setInt(2, id);
+            stmt.setString(3, "%" + searchText + "%");
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            boolean found = false;
+            while (rs.next()) {
+                found = true;
+                int clientId = rs.getInt("id");
+                String name = rs.getString("name");
+                String address = rs.getString("address");
+                String phoneNumber = rs.getString("phoneNumber");
+                
+                Client client = new Client(clientId, name, address, phoneNumber);
+                clientsList.add(client);
+            }
+            
+            clientTableView.setItems(clientsList);
+            
+            if (!found) {
+                showAlert(Alert.AlertType.INFORMATION, "No Results", 
+                          "No clients found", "No clients matching '" + searchText + "' were found.");
+            }
+            
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Search Error", 
+                      "Error searching for clients", e.getMessage());
+            e.printStackTrace();
         }
-        
-        clientTableView.setItems(clientsList);
     }
     
     @FXML
@@ -126,24 +180,12 @@ public class ClientSearchController implements Initializable {
         Client selectedClient = clientTableView.getSelectionModel().getSelectedItem();
         
         if (selectedClient != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/repairshop/views/ClientDetailsView.fxml"));
-                Parent root = loader.load();
-                
-                ClientDetailsController controller = loader.getController();
-                controller.setClient(selectedClient);
-                
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Client Details");
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
-                
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Error", 
-                        "Cannot open client details", "An error occurred while trying to open client details.");
-                e.printStackTrace();
-            }
+            showAlert(Alert.AlertType.INFORMATION, "Client Details", 
+                      "Client: " + selectedClient.getName(),
+                      "ID: " + selectedClient.getId() + "\n" +
+                      "Name: " + selectedClient.getName() + "\n" +
+                      "Address: " + selectedClient.getAddress() + "\n" +
+                      "Phone: " + selectedClient.getPhoneNumber());
         }
     }
     
@@ -152,22 +194,42 @@ public class ClientSearchController implements Initializable {
         Client selectedClient = clientTableView.getSelectionModel().getSelectedItem();
         
         if (selectedClient != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/repairshop/views/ClientAppliancesView.fxml"));
-                Parent root = loader.load();
+            try (Connection conn = DatabaseConnection.getConnection();
+                 PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT a.id_appareil, a.description, a.marque, c.nom_categorie " +
+                    "FROM appareil a " +
+                    "JOIN ordre_reparation o ON a.id_appareil = o.id_appareil " +
+                    "JOIN categorie c ON a.id_categorie = c.id_categorie " +
+                    "WHERE o.id = ?")) {
                 
-                ClientAppliancesController controller = loader.getController();
-                controller.loadClientAppliances(selectedClient.getId());
+                stmt.setInt(1, selectedClient.getId());
+                ResultSet rs = stmt.executeQuery();
                 
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setTitle("Client Appliances");
-                stage.setScene(new Scene(root));
-                stage.showAndWait();
+                StringBuilder devices = new StringBuilder();
+                boolean hasDevices = false;
                 
-            } catch (IOException e) {
+                while (rs.next()) {
+                    hasDevices = true;
+                    devices.append("ID: ").append(rs.getInt("id_appareil"))
+                           .append("\nDescription: ").append(rs.getString("description"))
+                           .append("\nBrand: ").append(rs.getString("marque"))
+                           .append("\nCategory: ").append(rs.getString("nom_categorie"))
+                           .append("\n\n");
+                }
+                
+                if (hasDevices) {
+                    showAlert(Alert.AlertType.INFORMATION, "Client Devices", 
+                              "Devices for " + selectedClient.getName(), 
+                              devices.toString());
+                } else {
+                    showAlert(Alert.AlertType.INFORMATION, "No Devices", 
+                              "No devices found", 
+                              "No devices found for client " + selectedClient.getName());
+                }
+                
+            } catch (SQLException e) {
                 showAlert(Alert.AlertType.ERROR, "Error", 
-                        "Cannot open appliances", "An error occurred while trying to open client appliances.");
+                          "Cannot load client devices", e.getMessage());
                 e.printStackTrace();
             }
         }
