@@ -5,7 +5,7 @@ module tp4 {
     requires javafx.fxml;
     requires java.sql;
     requires transitive mysql.connector.java;
-    
+    requires itextpdf;
     // Ouvrir le package application à javafx.fxml ET à javafx.base
     opens application to javafx.graphics, javafx.fxml, javafx.base;
 }

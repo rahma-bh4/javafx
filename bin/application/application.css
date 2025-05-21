@@ -1,1 +1,263 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+/* JavaFX CSS - Leave thi/* styles.css */
+
+/* General styles */
+* {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.root {
+    -fx-background-color: #f5f5f7;
+}
+
+/* Header styles */
+.header-panel {
+    -fx-background-color: #3498db;
+    -fx-padding: 15px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 5);
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.count-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Button styles */
+.primary-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5;
+}
+
+.primary-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.action-button {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5;
+}
+
+.action-button:hover {
+    -fx-background-color: #27ae60;
+}
+
+.cancel-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+.debug-button {
+    -fx-background-color: #ff5722;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-background-radius: 5;
+}
+
+.debug-button:hover {
+    -fx-background-color: #e64a19;
+}
+
+/* Table styles */
+.table-header {
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 5 5 0 0;
+    -fx-padding: 5px;
+}
+
+.client-table, .parts-table {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 5 5;
+    -fx-border-color: #ecf0f1;
+    -fx-border-width: 1;
+    -fx-border-radius: 0 0 5 5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #3498db;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* Form styles */
+.search-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+}
+
+.search-box {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.search-label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-padding: 5;
+    -fx-prompt-text-fill: #95a5a6;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+}
+
+/* Footer styles */
+.footer-panel {
+    -fx-background-color: white;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, -5);
+}
+
+/* Invoice styles */
+.invoice-container {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+
+.content-scroll {
+    -fx-background-color: transparent;
+}
+
+.content-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.invoice-header {
+    -fx-padding: 10;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.invoice-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.invoice-date {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.info-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.section-header {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3498db;
+}
+
+.info-grid {
+    -fx-padding: 5;
+}
+
+.field-value {
+    -fx-font-size: 14px;
+}
+
+.total-row {
+    -fx-padding: 5 10 5 10;
+}
+
+.total-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.total-value {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.summary-panel {
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 5;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.summary-grid {
+    -fx-padding: 5;
+}
+
+.summary-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+}
+
+.summary-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+}
+
+.grand-total-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.grand-total-value {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e74c3c;
+}

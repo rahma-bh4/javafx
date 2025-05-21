@@ -20,65 +20,75 @@ import javafx.stage.Stage;
  */
 public class RepairShopApplication extends Application {
     
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            // Test database connection
-            if (!DatabaseConnection.testConnection()) {
-                showDatabaseError();
-                return;
-            }
-            
-            // Create a TabPane to hold both views
-            TabPane tabPane = new TabPane();
-            
-            // Create and load the Client Search tab
-            Tab clientSearchTab = new Tab("Client Search");
-            clientSearchTab.setClosable(false);
-            try {
-                Parent clientSearchView = FXMLLoader.load(getClass().getResource("recherche_client.fxml"));
-                clientSearchTab.setContent(clientSearchView);
-            } catch (Exception e) {
-                e.printStackTrace();
-                showError("Loading Error", "Failed to load client search view: " + e.getMessage());
-            }
-            
-            // Create and load the Repair Order tab
-            Tab repairOrderTab = new Tab("Repair Order");
-            repairOrderTab.setClosable(false);
-            try {
-                Parent repairOrderView = FXMLLoader.load(getClass().getResource("reparation.fxml"));
-             // In your RepairShopApplication.java where you load the repair order tab
-                ScrollPane scrollPane = new ScrollPane();
-                scrollPane.setContent(repairOrderView);
-                scrollPane.setFitToWidth(true);
-                scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS); // Force vertical scrollbar
-                repairOrderTab.setContent(scrollPane);
-            } catch (Exception e) {
-                e.printStackTrace();
-                showError("Loading Error", "Failed to load repair order view: " + e.getMessage());
-            }
-            
-            // Add tabs to the tab pane
-            tabPane.getTabs().addAll(clientSearchTab, repairOrderTab);
-            
-            // Create a BorderPane as the main layout
-            BorderPane mainLayout = new BorderPane();
-            mainLayout.setCenter(tabPane);
-            
-            // Create the scene and set it on the stage
-            Scene scene = new Scene(mainLayout, 900, 700);
-            
-            // Configure the stage
-            primaryStage.setTitle("Repair Shop Management System");
-            primaryStage.setScene(scene);
-            primaryStage.show();
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Application Error", "An error occurred while starting the application: " + e.getMessage());
-        }
-    }
+	@Override
+	public void start(Stage primaryStage) {
+	    try {
+	        // Test database connection
+	        if (!DatabaseConnection.testConnection()) {
+	            showDatabaseError();
+	            return;
+	        }
+	        
+	        // Create a TabPane to hold all views
+	        TabPane tabPane = new TabPane();
+	        
+	        // Create and load the Client Search tab
+	        Tab clientSearchTab = new Tab("Client Search");
+	        clientSearchTab.setClosable(false);
+	        try {
+	            Parent clientSearchView = FXMLLoader.load(getClass().getResource("recherche_client.fxml"));
+	            clientSearchTab.setContent(clientSearchView);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            showError("Loading Error", "Failed to load client search view: " + e.getMessage());
+	        }
+	        
+	        // Create and load the Repair Order tab
+	        Tab repairOrderTab = new Tab("Repair Order");
+	        repairOrderTab.setClosable(false);
+	        try {
+	            Parent repairOrderView = FXMLLoader.load(getClass().getResource("reparation.fxml"));
+	            ScrollPane scrollPane = new ScrollPane();
+	            scrollPane.setContent(repairOrderView);
+	            scrollPane.setFitToWidth(true);
+	            scrollPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+	            repairOrderTab.setContent(scrollPane);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            showError("Loading Error", "Failed to load repair order view: " + e.getMessage());
+	        }
+	        
+	        // Create and load the Invoice tab
+	        Tab invoiceTab = new Tab("Facture");
+	        invoiceTab.setClosable(false);
+	        try {
+	            Parent invoiceView = FXMLLoader.load(getClass().getResource("facture.fxml"));
+	            invoiceTab.setContent(invoiceView);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            showError("Loading Error", "Failed to load invoice view: " + e.getMessage());
+	        }
+	        
+	        // Add tabs to the tab pane
+	        tabPane.getTabs().addAll(clientSearchTab, repairOrderTab, invoiceTab);
+	        
+	        // Create a BorderPane as the main layout
+	        BorderPane mainLayout = new BorderPane();
+	        mainLayout.setCenter(tabPane);
+	        
+	        // Create the scene and set it on the stage
+	        Scene scene = new Scene(mainLayout, 900, 700);
+	        
+	        // Configure the stage
+	        primaryStage.setTitle("Repair Shop Management System");
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        showError("Application Error", "An error occurred while starting the application: " + e.getMessage());
+	    }
+	}
     
     private void showDatabaseError() {
         Alert alert = new Alert(AlertType.ERROR);
